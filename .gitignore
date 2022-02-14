@@ -48,3 +48,11 @@ Thumbs.db
 *.mov
 *.wmv
 
+# laravel artifact files
+vendor/
+
+public/css/app.css
+public/js/app.js
+public/js/authApp.js
+
+.env

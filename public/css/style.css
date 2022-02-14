@@ -1,0 +1,29 @@
+.c-header.c-header-fixed {
+  top: 0px;
+}
+
+.click-file {
+  cursor: pointer;
+}
+
+#app {
+  width: 100%;
+}
+
+.btn-w-120 {
+  width: 120px;
+}
+
+.btn-w-100 {
+  min-width: 100px;
+}
+
+.txt-warning {
+  font-size: 11px;
+  margin-left: 5px;
+}
+
+.c-content-wraper {
+  padding: 30px 30px 0 30px;
+}
+

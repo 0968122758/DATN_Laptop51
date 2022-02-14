@@ -1,29 +1,47 @@
-# README #
+# CoreUI Free Laravel Bootstrap Admin Template [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?text=CoreUI%20-%20Free%20Bootstrap%204%20Admin%20Template%20&url=https://coreui.io&hashtags=bootstrap,admin,template,dashboard,panel,free,angular,react,vue)
 
-This README would normally document whatever steps are necessary to get your application up and running.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-### What is this repository for? ###
+## Required enviroiment version
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+$ php >= 7.4.x
+$ node >= 14.16.x
+$ npm 6.x
 
-### How do I get set up? ###
+## Admin Templates built on top of CoreUI Pro
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+| Default Theme | Legacy Theme | Dark Layout |
+| --- | --- | --- |
+| [![CoreUI Pro Bootstrap Admin Template](https://coreui.io/images/mockups/mockup_3_1_default.png)](https://coreui.io/pro/laravel/) | [![CoreUI Pro Bootstrap Admin Template](https://coreui.io/images/mockups/mockup_3_1_legacy.png)](https://coreui.io/pro/laravel/)| [![CoreUI Pro Bootstrap Admin Template](https://coreui.io/images/mockups/mockup_3_1_dark.png)](https://coreui.io/pro/laravel/)
 
-### Contribution guidelines ###
+## Installation
 
-* Writing tests
-* Code review
-* Other guidelines
+``` bash
+# install app's dependencies
+$ composer install
 
-### Who do I talk to? ###
+# install app's dependencies
+$ npm install
 
-* Repo owner or admin
-* Other community or team contact
+```
+### Next step
+
+``` bash
+# in your app directory
+# generate laravel APP_KEY
+$ php artisan key:generate
+
+# run database migration and seed
+$ php artisan migrate:refresh --seed
+
+# and repeat generate mixing
+$ npm run build
+```
+
+
+## Usage
+
+``` bash
+# start local server
+$ php artisan serve
+
