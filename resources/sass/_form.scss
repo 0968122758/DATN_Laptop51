@@ -1,0 +1,343 @@
+.form-box-container {
+    input[type="text"],
+    input[type="password"] {
+        min-height: 44px;
+    }
+    .row-container {
+        margin-left: 35px;
+        font-weight: 400;
+        width: 90%;
+        @include sp {
+            margin-left: 0;
+            width: 100%;
+        }
+        @include desktop {
+            margin-left: 30px;
+        }
+        @include desktop-extra {
+            width: 90%;
+        }
+        @include desktop-4k {
+            width: 85%;
+        }
+        .row-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            font-size: 16px;
+            color: #535353;
+            @include sp {
+                justify-content: normal;
+            }
+        }
+        .row-title1 {
+            display: flex;
+            justify-content: space-between;
+            //align-items: center;
+            font-weight: 500;
+            font-size: 16px;
+            color: #535353;
+            @include sp {
+                justify-content: normal;
+            }
+        }
+        .title-image {
+            align-items: normal !important;
+        }
+        .row-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding-left: 0;
+            color: #535353;
+            @include sp {
+                flex-direction: column;
+                align-items: end;
+                padding-left: 15px;
+            }
+            .date-time {
+                display: flex;
+                flex-wrap: wrap;
+                @include sp {
+                    flex-direction: column;
+                    align-items: end;
+                }
+            }
+        }
+        .user-image {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background-image: url(/images/user.jpg);
+            background-size: cover;
+        }
+        .img-drop-box {
+            width: 220px;
+            height: 110px;
+            border: 1px dashed #b9b9b9;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .image-thumbnail {
+            width: 220px;
+            height: 110px;
+            border-radius: 5px;
+            flex: inherit !important;
+            img {
+                object-fit: cover;
+                border-radius: 5px;
+            }
+        }
+        .circle-no-album {
+            width: 110px;
+            height: 110px;
+            border: 1px dashed #b9b9b9;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .circle-album {
+            width: 110px;
+            height: 110px;
+            img {
+                object-fit: cover;
+                border-radius: 5px;
+            }
+        }
+        #file_img_banner,
+        #file_img_banner1,
+        #file_img_banner2,
+        #file_img_banner3,
+        #album1,
+        #album2,
+        #album3,
+        #album4 {
+            display: none;
+        }
+    }
+    label {
+        font-weight: normal;
+        margin: 0;
+    }
+    .label-title {
+        font-size: 16px;
+    }
+    .button-register {
+        margin-bottom: 20px;
+        padding-top: 55px;
+        @include sp {
+            margin-bottom: 0;
+        }
+        button {
+            min-width: 200px;
+            height: 44px;
+            @include sp {
+                width: 100%;
+            }
+        }
+    }
+    input[type="text"] {
+        &:focus {
+            border: 2px solid $green !important;
+            outline: none !important;
+            box-shadow: none;
+        }
+    }
+    textarea {
+        &:focus {
+            border: 2px solid $green !important;
+            outline: none !important;
+            box-shadow: none;
+        }
+    }
+    [type="radio"]:checked,
+    [type="radio"]:not(:checked) {
+        position: absolute;
+        left: -9999px;
+    }
+    [type="radio"]:checked + label,
+    [type="radio"]:not(:checked) + label {
+        position: relative;
+        padding-left: 28px;
+        cursor: pointer;
+        line-height: 20px;
+        display: inline-block;
+    }
+    [type="radio"]:checked + label:before,
+    [type="radio"]:not(:checked) + label:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 18px;
+        height: 18px;
+        border: 1px solid #ddd;
+        border-radius: 100%;
+        background: #fff;
+    }
+    [type="radio"]:checked + label:after,
+    [type="radio"]:not(:checked) + label:after {
+        content: "";
+        width: 12px;
+        height: 12px;
+        background: $green;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        border-radius: 100%;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+    [type="radio"]:not(:checked) + label:after {
+        opacity: 0;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    [type="radio"]:checked + label:after {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    /* The container */
+    .container-checkbox {
+        display: block;
+        position: relative;
+        padding-left: 25px;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    /* Hide the browser's default checkbox */
+    .container-checkbox input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 3px;
+        left: 0;
+        height: 15px;
+        width: 15px;
+        background-color: $white;
+        border-radius: 2px;
+        border: 1px solid #c3c3c3;
+    }
+    /* On mouse-over, add a grey background color */
+    .container-checkbox:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+    /* When the checkbox is checked, add a blue background */
+    .container-checkbox input:checked ~ .checkmark {
+        background-color: $green;
+    }
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+    /* Show the checkmark when checked */
+    .container-checkbox input:checked ~ .checkmark:after {
+        display: block;
+    }
+    /* Style the checkmark/indicator */
+    .container-checkbox .checkmark:after {
+        left: 4px;
+        top: 1px;
+        width: 5px;
+        height: 10px;
+        border: 1px solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    .edit-circle-button {
+        min-width: 200px;
+        font-weight: 600;
+        font-style: 16px;
+        @include sp {
+            width: 100%;
+        }
+    }
+}
+
+.u-required {
+    margin-top: 1px;
+    background-color: $red;
+    color: $white;
+    font-weight: normal;
+    font-size: 12px;
+    border-radius: 5px;
+    width: 44px;
+    height: 22px;
+    line-height: 21px;
+    text-align: center;
+    margin-left: 5px;
+}
+
+.input-checkbox-success {
+    position: relative;
+    display: initial;
+    line-height: 32px;
+    label {
+        position: relative;
+    }
+    input[type="checkbox"] {
+        margin-bottom: -3px;
+        margin-right: 10px;
+        -webkit-appearance: none;
+        background-color: #fafafa;
+        border: 1px solid #cacece;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+            inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+        padding: 7px;
+        border-radius: 3px;
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+    }
+    input[type="checkbox"]:checked {
+        background-color: $green;
+        border: 1px solid $green;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+            inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05),
+            inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+        color: #99a1a7;
+    }
+    input[type="checkbox"]:checked + span::after {
+        content: "";
+        position: absolute;
+        width: 1.2ex;
+        height: 0.7ex;
+        background: rgba(0, 0, 0, 0);
+        top: 0.8ex;
+        left: 0.5ex;
+        border: 2px solid #ffffff;
+        border-top: none;
+        border-right: none;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+}
+
+.img-drop-box {
+    @include desktop-extra {
+        margin-top: 8px;
+    }
+    .margin-img {
+        @include desktop-extra {
+            // margin-top: -5px;
+        }
+    }
+}

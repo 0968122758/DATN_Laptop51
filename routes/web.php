@@ -21,6 +21,13 @@ Route::group([
     'namespace' => "Admin"
 ], function () {
     Route::resource('user', "UsersController");
+
+    // categories route
+    Route::group(['prefix' => 'category'], function () {
+        Route::get('/', 'CategoriesController@index')->name('admin.category.index');
+        Route::get('/getData', 'CategoriesController@getData')->name('admin.category.getData');
+        Route::post('/delete-all', 'CategoriesController@deleteAll')->name('admin.category.deleteAll');
+    });
 });
 
 Auth::routes();

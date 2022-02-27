@@ -1,7 +1,51 @@
 // Variable overrides
-$red: #E03A13;
-$green: #28C76F;
+$red: #e03a13;
+$green: #28c76f;
 $gray: #535353;
-$yellow: #FDDA18;
+$yellow: #fdda18;
 $white: #fff;
 $black: #000;
+$lightGray_3F4: #f0f3f4;
+$lightGray: #e5e8e9;
+$pink: #f78bb9;
+$blue: #79cafc;
+$mobile-width: 425px;
+$tablet-width: 768px;
+$desktop-md-width: 992px;
+$desktop-lg-width: 1200px;
+$desktop-xl-width: 1500px;
+@mixin small-sp {
+    @media (max-width: #{$mobile-width - 1px}) {
+        @content;
+    }
+}
+
+@mixin sp {
+    @media (max-width: #{$tablet-width - 1px}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-md-width - 1px}) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: #{$desktop-md-width}) and (max-width: #{$desktop-lg-width - 1px}) {
+        @content;
+    }
+}
+
+@mixin desktop-extra {
+    @media (min-width: #{$desktop-lg-width}) {
+        @content;
+    }
+}
+
+@mixin desktop-4k {
+    @media (min-width: #{$desktop-xl-width}) {
+        @content;
+    }
+}
