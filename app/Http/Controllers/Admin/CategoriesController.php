@@ -21,13 +21,13 @@ class CategoriesController extends Controller
         return view('admin.category.index', ['breadcrumbs' => $breadcrumbs,]);
     }
 
-    public function getData(Request $request)
+    public function getData()
     {
         try {
             $data = Category::orderByDesc('updated_at')->paginate(10);
             return response()->json($data, StatusCode::OK);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+            return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
         }
     }
 
