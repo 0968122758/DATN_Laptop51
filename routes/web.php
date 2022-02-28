@@ -28,6 +28,13 @@ Route::group([
         Route::get('/getData', 'CategoriesController@getData')->name('admin.category.getData');
         Route::post('/delete-all', 'CategoriesController@deleteAll')->name('admin.category.deleteAll');
     });
+
+    // contacts route
+    Route::group(['prefix' => 'contact'], function () {
+        Route::get('/', 'ContactsController@index')->name('admin.contact.index');
+        Route::get('/getData', 'ContactsController@getData')->name('admin.contact.getData');
+        Route::post('/delete-all', 'ContactsController@deleteAll')->name('admin.contact.deleteAll');
+    });
 });
 
 Auth::routes();

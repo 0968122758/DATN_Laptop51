@@ -15,6 +15,7 @@ class DummyDatabaseSeeder extends Seeder
     {
         $this->call([
             DummyCategorySeeder::class,
+            DummyContactSeeder::class
         ]);
     }
 }
