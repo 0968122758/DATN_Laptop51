@@ -129,7 +129,14 @@
     background-color: #ebedef !important;
     border-color: #ebedef !important;
 }
-
+.ip {
+    border: 1px solid #d0d9dd;
+    margin: 0px 8px;
+    height: 35px;
+    padding-left: 20px;
+    font-size: 14px;
+    border-radius: 7px;
+}
 .index-page {
     .sub-menu-user {
         margin: auto;

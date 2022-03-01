@@ -18,7 +18,7 @@ class ContactsController extends Controller
     public function getData(Request $request)
     {
         try {
-            $data = Contact::orderByDesc('updated_at')->paginate(10);
+            $data = Contact::orderByDesc('updated_at')->search()->paginate(10);
             return response()->json($data, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);

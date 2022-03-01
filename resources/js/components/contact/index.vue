@@ -31,6 +31,9 @@
                             Delete All
                         </button>
                     </div>
+                    <div>
+                        <input type="text" class="ip" v-model="searchTitle" @keyup="getData()" placeholder="Search by Title">
+                    </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-5 col-6">
@@ -162,9 +165,15 @@ export default {
             isBtnDeleteAll: false,
             isInputALl: false,
             selectedIds: [],
+            searchTitle: null
         };
     },
     props: ["initData"],
+    // watch: {
+    //     searchTitle(page) {
+    //         this.getData(page);
+    //     }
+    // },
     methods: {
         checkAll() {
             this.isInputALl = !this.isInputALl;
@@ -195,8 +204,9 @@ export default {
         chanePage: function (page) {},
         getData(page) {
             let that = this;
+            var url = this.searchTitle?`${this.initData.urlGetData}?searchTitle=${this.searchTitle}`:`${this.initData.urlGetData}`
             axios
-                .get(this.initData.urlGetData, {
+                .get(url, {
                     params: {
                         _token: Laravel.csrfToken,
                         page: page,
@@ -212,6 +222,8 @@ export default {
                 })
                 .catch((error) => {});
         },
+
+
     },
     created() {
         this.getData(1);

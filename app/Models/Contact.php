@@ -14,4 +14,11 @@ class Contact extends Model
         'body',
         'status'
     ];
+
+    public function scopeSearch($query){
+        if ($searchTitle = request()->searchTitle){
+            $query = $query->where('title','like','%'.$searchTitle.'%');
+        }
+        return $query;
+    }
 }
