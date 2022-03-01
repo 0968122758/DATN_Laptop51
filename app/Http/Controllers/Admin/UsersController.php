@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Enums\StatusCode;
+use App\Models\User;
+use Exception;
 
 class UsersController extends Controller
 {
@@ -14,7 +17,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('admin.user.index');
+        $breadcrumbs = ['Users'];
+        return view('admin.user.index', ['breadcrumbs' => $breadcrumbs,]);
     }
 
     /**
@@ -33,9 +37,14 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function getData()
     {
-        //
+        try {
+            $data = User::orderByDesc('updated_at')->paginate(10);
+            return response()->json($data, StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
+        }
     }
 
     /**
@@ -78,8 +87,13 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteAll(Request $request)
     {
-        //
+        try {
+            User::whereIn('id', $request)->delete();
+            return response()->json(['status' => true], StatusCode::OK);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
+        }
     }
 }

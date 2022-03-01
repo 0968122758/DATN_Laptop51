@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers;
+use App\Http\Controllers\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,12 @@ Route::group([
     'prefix' => 'admin',
     'namespace' => "Admin"
 ], function () {
-    Route::resource('user', "UsersController");
+  // user route
+  Route::group(['prefix' => 'user'], function () {
+    Route::get('/', 'UsersController@index')->name('admin.user.index');
+    Route::get('/getData', 'UsersController@getData')->name('admin.user.getData');
+    Route::post('/delete-all', 'UsersController@deleteAll')->name('admin.user.deleteAll');
+    });
 
     // categories route
     Route::group(['prefix' => 'category'], function () {
