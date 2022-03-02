@@ -27,6 +27,7 @@
                                 'btn-success': isBtnDeleteAll,
                                 disabled: !isBtnDeleteAll,
                             }"
+                            @click="deleteAll()"
                         >
                             Delete All
                         </button>
@@ -165,7 +166,7 @@ export default {
             isBtnDeleteAll: false,
             isInputALl: false,
             selectedIds: [],
-            searchTitle: null
+            searchTitle: null,
         };
     },
     props: ["initData"],
@@ -227,8 +228,18 @@ export default {
                     this.getData();
                 })
                 .catch((error) => {});
+        },
+        deleteAll() {
+            console.log(this.selectedIds);
+            axios
+                .post(this.initData.urlDeleteAllData, {
+                        id: this.selectedIds,
+                })
+                .then(() => {
+                    this.getData();
+                })
+                .catch((error) => {});
         }
-
     },
     created() {
         this.getData(1);
