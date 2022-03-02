@@ -169,11 +169,6 @@ export default {
         };
     },
     props: ["initData"],
-    // watch: {
-    //     searchTitle(page) {
-    //         this.getData(page);
-    //     }
-    // },
     methods: {
         checkAll() {
             this.isInputALl = !this.isInputALl;
@@ -204,7 +199,11 @@ export default {
         chanePage: function (page) {},
         getData(page) {
             let that = this;
-            var url = this.searchTitle?`${this.initData.urlGetData}?searchTitle=${this.searchTitle}`:`${this.initData.urlGetData}`
+            if (this.searchTitle) {
+                var url = this.initData.urlGetData + `?searchTitle=` + this.searchTitle;
+            } else {
+                var url = this.initData.urlGetData;
+            }
             axios
                 .get(url, {
                     params: {
@@ -222,7 +221,13 @@ export default {
                 })
                 .catch((error) => {});
         },
-
+        deleteItem(id) {
+            axios.post(this.initData.urlDeleteItemData + `/` + id)
+                .then(() => {
+                    this.getData();
+                })
+                .catch((error) => {});
+        }
 
     },
     created() {

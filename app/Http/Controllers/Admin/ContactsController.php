@@ -25,6 +25,15 @@ class ContactsController extends Controller
         }
     }
 
+    public function deleteItem(Request $request) {
+        try {
+            Contact::whereIn('id', [$request->id])->delete();
+            return response()->json(['status' => true], StatusCode::OK);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
+        }
+    }
+
     public function deleteAll(Request $request)
     {
         try {
