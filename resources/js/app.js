@@ -8,7 +8,9 @@ import Paginate from "vuejs-paginate";
 import UserList from "./components/user/index.vue";
 import CategoryList from "./components/category/index.vue";
 import ContactList from "./components/contact/index.vue";
+import VeeValidate from "vee-validate";
 
+Vue.use(VeeValidate);
 Vue.use(VueSweetalert2);
 Vue.component("paginate", Paginate);
 
@@ -18,7 +20,7 @@ new Vue({
     components: {
         UserList,
         CategoryList,
-        ContactList
+        ContactList,
     },
     methods: {},
     mounted() {},
