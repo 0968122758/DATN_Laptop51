@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Enums\StatusCode;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Exception;
 
 class UsersController extends Controller
@@ -37,10 +38,15 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getData()
+    public function getData(Request $request)
     {
         try {
-            $data = User::orderByDesc('updated_at')->paginate(10);
+            $data = User::where(function ($datasearch) use($request) {
+                if ($request->name) {
+                    $datasearch->where('name', 'like', '%' . $request->name . '%');
+                }
+            })->orderByDesc('updated_at')->paginate(10);
+            
             return response()->json($data, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
@@ -90,10 +96,23 @@ class UsersController extends Controller
     public function deleteAll(Request $request)
     {
         try {
+            Log::info($request->all());
             User::whereIn('id', $request)->delete();
             return response()->json(['status' => true], StatusCode::OK);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
         }
+    }
+
+    public function delete_record($id){
+        $record = User::find($id)->delete();
+        return 'ok';
+    }
+
+    public function postSearch(Request $request)
+    {
+    	$search = $request->name;
+    	$dataName = User::where('name', 'LIKE', "%$search%")->get();
+    	return $dataName;
     }
 }

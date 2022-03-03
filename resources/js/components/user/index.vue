@@ -19,7 +19,7 @@
                                 <span class="checkmark"></span
                             ></label>
                         </div>
-                        <button
+                        <button @click="deleteAll(user.id)"
                             class="btn border-radius-7"
                             v-bind:class="{
                                 'btn-outline-secondary': !isBtnDeleteAll,
@@ -30,6 +30,9 @@
                         >
                             Delete All
                         </button>
+                    </div>
+                    <div class="card">
+                        <input type="text" v-model="searchText" @keyup="getData(1)">
                     </div>
                 </div>
             </div>
@@ -156,6 +159,7 @@
 export default {
     data() {
         return {
+            searchText: '',
             users: [],
             currentPage: "",
             numberOfFirstRecord: "",
@@ -169,6 +173,16 @@ export default {
     },
     props: ["initData"],
     methods: {
+        deleteItem(id){
+            axios.delete('/admin/user/deleteItem/'+id).then(response =>{
+                this.getData();
+            });
+        },
+        deleteAll(){
+            axios.post('/admin/user/deleteAll',this.selectedIds).then(response =>{
+                this.getData();
+            });
+        },
         checkAll() {
             this.isInputALl = !this.isInputALl;
             this.selectedIds = [];
@@ -203,6 +217,7 @@ export default {
                     params: {
                         _token: Laravel.csrfToken,
                         page: page,
+                        name: this.searchText
                     },
                 })
                 .then(function (response) {

@@ -20,11 +20,13 @@ Route::group([
     'prefix' => 'admin',
     'namespace' => "Admin"
 ], function () {
-  // user route
-  Route::group(['prefix' => 'user'], function () {
-    Route::get('/', 'UsersController@index')->name('admin.user.index');
-    Route::get('/getData', 'UsersController@getData')->name('admin.user.getData');
-    Route::post('/delete-all', 'UsersController@deleteAll')->name('admin.user.deleteAll');
+    // user route
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/', 'UsersController@index')->name('admin.user.index');
+        Route::get('/getData', 'UsersController@getData')->name('admin.user.getData');
+        Route::delete('/deleteItem/{id}', 'UsersController@delete_record')->name('admin.user.delete_record');
+        Route::post('/deleteAll', 'UsersControllerr@deleteAll')->name('admin.user.deleteAll');
+        Route::post('/search', 'UsersController@Search');
     });
 
     // categories route
