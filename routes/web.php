@@ -36,6 +36,12 @@ Route::group([
         Route::post('/delete-item/{id}', 'ContactsController@deleteItem')->name('admin.contact.deleteItem');
         Route::post('/delete-all', 'ContactsController@deleteAll')->name('admin.contact.deleteAll');
     });
+    Route::group(['prefix' => 'reviews'], function () {
+        Route::get('/', 'ReviewsController@index')->name('admin.review.index');
+        Route::get('/getData', 'ReviewsController@getData')->name('admin.review.getData');
+        Route::post('/delete-item/{id}', 'ReviewsController@deleteItem')->name('admin.review.deleteItem');
+        Route::post('/delete-all', 'ReviewsController@deleteAll')->name('admin.review.deleteAll');
+    });
 });
 
 Auth::routes();

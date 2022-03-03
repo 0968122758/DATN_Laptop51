@@ -9,6 +9,7 @@ import UserList from "./components/user/index.vue";
 import CategoryList from "./components/category/index.vue";
 import ContactList from "./components/contact/index.vue";
 import VeeValidate from "vee-validate";
+import ReviewList from "./components/review/index.vue";
 
 Vue.use(VeeValidate);
 Vue.use(VueSweetalert2);
@@ -21,6 +22,7 @@ new Vue({
         UserList,
         CategoryList,
         ContactList,
+        ReviewList,
     },
     methods: {},
     mounted() {},
