@@ -54,5 +54,6 @@ vendor/
 public/css/app.css
 public/js/app.js
 public/js/authApp.js
+public/images/upload/
 
 .env
