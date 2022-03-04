@@ -221,7 +221,7 @@
             .off {
                 background-color: $white;
                 color: #b9b9b9;
-                border: 1px solid #DAE0E2;
+                border: 1px solid #dae0e2;
             }
             .btn-answered {
                 width: 98px;
@@ -556,7 +556,6 @@
     height: 65px;
     img {
         width: 100%;
-        display: none;
         height: 100%;
         object-fit: cover;
         border-radius: 50%;
@@ -626,4 +625,12 @@
 
 .link-item {
     color: $black;
+}
+
+.is-danger {
+    color: $red;
+}
+
+.hidden {
+    display: none;
 }

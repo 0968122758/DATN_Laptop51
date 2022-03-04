@@ -27,6 +27,8 @@ Route::group([
         Route::get('/', 'CategoriesController@index')->name('admin.category.index');
         Route::get('/getData', 'CategoriesController@getData')->name('admin.category.getData');
         Route::post('/delete-all', 'CategoriesController@deleteAll')->name('admin.category.deleteAll');
+        Route::get('/create', 'CategoriesController@create')->name('admin.category.create');
+        Route::post('/create', 'CategoriesController@store')->name('admin.category.store');
     });
 
     // contacts route

@@ -7,6 +7,7 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import Paginate from "vuejs-paginate";
 import UserList from "./components/user/index.vue";
 import CategoryList from "./components/category/index.vue";
+import CategoryCreate from "./components/category/create.vue";
 import ContactList from "./components/contact/index.vue";
 import VeeValidate from "vee-validate";
 import ReviewList from "./components/review/index.vue";
@@ -21,6 +22,7 @@ new Vue({
     components: {
         UserList,
         CategoryList,
+        CategoryCreate,
         ContactList,
         ReviewList,
     },
