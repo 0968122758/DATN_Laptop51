@@ -92,7 +92,7 @@
                             <a
                                 class="link-item text-view"
                                 :href="`/admin/admin/item/${admin.id}`"
-                                >{{ admin.name }}</a
+                                >{{ admin.password }}</a
                             >
                         </td>
                         <td class="text-center">{{ admin.views }}</td>

@@ -7,7 +7,7 @@
                             <div class="form-group">
                                 <label for="">email </label>
                                 <input @input="changeInput()"
-                                    v-validate="'required|max:255'" type="text" v-model="email" name="email" class="form-control" placeholder="">
+                                    v-validate="'required|email|max:255'" type="text" v-model="email" name="email" class="form-control" placeholder="">
                                  <div class="input-group is-danger" role="alert">
                                     {{ errors.first("email") }}
                                 </div>
@@ -31,7 +31,7 @@
                             <div class="form-group">
                                 <label for="">rule </label>
                                 <input @input="changeInput()"
-                                    v-validate="'required|max:255'" type="number" v-model="rule" name="rule" class="form-control" placeholder="">
+                                    v-validate="'required|max:1|alpha_num'" type="number" v-model="rule" name="rule" class="form-control" placeholder="">
                                  <div class="input-group is-danger" role="alert">
                                     {{ errors.first("rule") }}
                                 </div>

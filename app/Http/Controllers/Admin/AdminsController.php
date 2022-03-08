@@ -72,10 +72,10 @@ class AdminsController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'rule' => 'required',
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+            'password' => 'required|max:255',
+            'rule' => 'required|max:1|alpha_num',
 
         ]);
         if ($validator->fails()) {
@@ -84,7 +84,7 @@ class AdminsController extends Controller
         try {
             $admins = new Admins();
             $admins->email = $request->email;
-            $admins->password = $request->password;
+            $admins->password = bcrypt($request->password);
             $admins->name = $request->name;
             $admins->rule = $request->rule;
             $admins->save();
