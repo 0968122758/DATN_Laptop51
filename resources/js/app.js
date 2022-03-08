@@ -11,6 +11,8 @@ import CategoryCreate from "./components/category/create.vue";
 import ContactList from "./components/contact/index.vue";
 import VeeValidate from "vee-validate";
 import ReviewList from "./components/review/index.vue";
+import AdminsList from "./components/admins/index.vue";
+import AdminsCreate from "./components/admins/create.vue";
 
 Vue.use(VeeValidate);
 Vue.use(VueSweetalert2);
@@ -25,6 +27,8 @@ new Vue({
         CategoryCreate,
         ContactList,
         ReviewList,
+        AdminsList,
+        AdminsCreate,
     },
     methods: {},
     mounted() {},

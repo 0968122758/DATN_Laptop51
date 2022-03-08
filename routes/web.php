@@ -44,6 +44,15 @@ Route::group([
         Route::post('/delete-item/{id}', 'ReviewsController@deleteItem')->name('admin.review.deleteItem');
         Route::post('/delete-all', 'ReviewsController@deleteAll')->name('admin.review.deleteAll');
     });
+    Route::group(['prefix' => 'admins'], function () {
+        Route::get('/', 'AdminsController@index')->name('admin.admins.index');
+        Route::get('/getData', 'AdminsController@getData')->name('admin.admins.getData');
+        Route::delete('deleteItem/{id}', 'AdminsController@deleteItem')->name('admin.admins.deleteItem');
+        Route::post('/deleteAll', 'AdminsController@deleteAll')->name('admin.admins.deleteAll');
+        Route::get('/create', 'AdminsController@Create')->name('admin.admins.create');
+        Route::post('/create', 'AdminsController@store')->name('admin.admins.store');
+
+    });
 });
 
 Auth::routes();
