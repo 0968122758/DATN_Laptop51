@@ -30,6 +30,7 @@ class AdminsController extends Controller
                     $q->where('name', 'like', '%' . $request->name . '%');
                 }
             })->orderByDesc('updated_at')->paginate(10);
+            
             return response()->json($data, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);

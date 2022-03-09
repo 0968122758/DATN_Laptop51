@@ -1,52 +1,169 @@
 <template>
-<div class="container-fluid">
-        <div class="row form-create">
-                <form action="" method="post" enctype="multipart/form-data">
-                    <div class="row form-create">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="">email </label>
-                                <input @input="changeInput()"
-                                    v-validate="'required|email|max:255'" type="text" v-model="email" name="email" class="form-control" placeholder="">
-                                 <div class="input-group is-danger" role="alert">
-                                    {{ errors.first("email") }}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">password </label>
-                                <input @input="changeInput()"
-                                    v-validate="'required|max:255'" type="password" v-model="password" name="password" class="form-control" placeholder="">
-                                 <div class="input-group is-danger" role="alert">
-                                    {{ errors.first("password") }}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">name </label>
-                                <input @input="changeInput()"
-                                    v-validate="'required|max:255'" type="text" v-model="name" name="name" class="form-control" placeholder="">
-                                 <div class="input-group is-danger" role="alert">
+    <div class="form-box-container">
+        <div class="fade-in">
+            <form
+                @submit.prevent="register"
+                method="POST"
+                class="form-horizontal"
+                action=""
+            >
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group row row-container mt-4">
+                            <label
+                                for="text-input"
+                                class="col-md-3 col-form-label row-title"
+                                >Admins Name
+                                <span class="u-required">required</span>
+                            </label>
+                            <div class="col-md-9 row-content">
+                                <input
+                                    type="text"
+                                    class="form-control with-input"
+                                    id="name"
+                                    name="name"
+                                    placeholder="ランニング"
+                                    v-model="name"
+                                    @input="changeInput()"
+                                    v-validate="'required|max:255'"
+                                />
+                                <div class="input-group is-danger" role="alert">
                                     {{ errors.first("name") }}
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">rule </label>
-                                <input @input="changeInput()"
-                                    v-validate="'required|max:1|alpha_num'" type="number" v-model="rule" name="rule" class="form-control" placeholder="">
-                                 <div class="input-group is-danger" role="alert">
-                                    {{ errors.first("rule") }}
+                                <div
+                                    class="input-group is-danger"
+                                    v-if="sysErrorsData.name"
+                                    role="alert"
+                                >
+                                    {{ sysErrorsData.name[0] }}
                                 </div>
                             </div>
-                        <div class="col-12 d-flex justify-content-end">
-                            <br>
-                            <a href="" class="btn btn-danger">Hủy</a>
-                            &nbsp;
-                            <button type="submit" @click.prevent="register" class="btn btn-primary">Lưu</button>
                         </div>
+                        
+                        <div class="form-group row row-container mt-4">
+                            <label
+                                for="text-input"
+                                class="col-md-3 col-form-label row-title"
+                                >Admins email
+                                <span class="u-required">required</span>
+                            </label>
+                            <div class="col-md-9 row-content">
+                                <input
+                                    type="text"
+                                    class="form-control with-input"
+                                    id="email"
+                                    name="email"
+                                    placeholder="ランニング"
+                                    v-model="email"
+                                    @input="changeInput()"
+                                    v-validate="'required|max:255|email'"
+                                />
+                                <div class="input-group is-danger" role="alert">
+                                    {{ errors.first("email") }}
+                                </div>
+                                <div
+                                    class="input-group is-danger"
+                                    v-if="sysErrorsData.email"
+                                    role="alert"
+                                >
+                                    {{ sysErrorsData.name[0] }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row row-container mt-4">
+                            <label
+                                for="text-input"
+                                class="col-md-3 col-form-label row-title"
+                                >Admins password
+                                <span class="u-required">required</span>
+                            </label>
+                            <div class="col-md-9 row-content">
+                                <input
+                                    type="text"
+                                    class="form-control with-input"
+                                    id="password"
+                                    name="password"
+                                    placeholder="ランニング"
+                                    v-model="password"
+                                    @input="changeInput()"
+                                    v-validate="'required|max:255'"
+                                />
+                                <div class="input-group is-danger" role="alert">
+                                    {{ errors.first("password") }}
+                                </div>
+                                <div
+                                    class="input-group is-danger"
+                                    v-if="sysErrorsData.password"
+                                    role="alert"
+                                >
+                                    {{ sysErrorsData.name[0] }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row row-container mt-4">
+                            <label
+                                for="text-input"
+                                class="col-md-3 col-form-label row-title"
+                                >Admins Rule
+                                <span class="u-required">required</span>
+                            </label>
+                            <div class="col-md-9  radio_content">
+                                <div class="custom-control custom-radio">
+                                <input  type="radio" 
+                                        class="custom-control-radio custom-radio" 
+                                        id="rule1" 
+                                        name="rule"
+                                         value="1"
+                                    v-model="rule"
+                                    @input="changeInput()"
+                                    v-validate="'required'"
+                                        >
+                                <label 
+                                 for="defaultGroupExample1">Rule 1</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                 <input  type="radio" 
+                                        class="custom-control-radio custom-radio" 
+                                        id="rule2" 
+                                        name="rule"
+                                         value="2"
+                                    v-model="rule"
+                                    @input="changeInput()"
+                                    v-validate="'required'"
+                                        >
+                                <label 
+                                 for="defaultGroupExample1">Rule 2</label>
+                                </div>
+                                <div class="input-group is-danger" role="alert">
+                                    {{ errors.first("rule") }}
+                                </div>
+                                <div
+                                    class="input-group is-danger"
+                                    v-if="sysErrorsData.rule"
+                                    role="alert"
+                                >
+                                    {{ sysErrorsData.name[0] }}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
-</div>
+                </div>
+                <div class="button-register text-center">
+                    <button
+                        type="submit"
+                        class="btn btn-success hiragino-sans-w7"
+                        :disabled="isSubmit"
+                    >
+                        登録
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="loader-container" v-if="isSubmit">
+            <div class="loader"></div>
+        </div>
+    </div>
 </template>
 <script>
 export default {

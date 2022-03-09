@@ -30,7 +30,8 @@
                         >
                             Delete All
                         </button>
-                    <input type="text" v-model="searchText" @keyup="getData(1)">
+                        
+                    <input type="text" placeholder="Enter the name you are looking for . . ."  class="text-center search-admins" v-model="searchText" @keyup="getData(1)">
                     </div>
                 </div>
             </div>
@@ -51,9 +52,8 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Email</th>
-                        <th class="text-center">name</th>
-                        <th class="text-center"></th>
+                        <th>Name</th>
+                        <th class="text-center">Email</th>
                         <th class="text-center">Created</th>
                         <th class="text-center"></th>
                     </tr>
@@ -67,37 +67,40 @@
                             <div class="form-check form-check-inline">
                                 <label
                                     class="container-checkbox form-check-label align-items-center height-17 p-0"
-                                    :for="`admins${index}`"
+                                    :for="`admin${index}`"
                                 >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
                                         v-model="selectedIds"
-                                        :id="`admins${index}`"
-                                        name="admins"
+                                        :id="`admin${index}`"
+                                        name="admin"
                                         @change="updateCheckAll"
                                         :value="admin.id" />
                                     <span class="checkmark"></span
                                 ></label>
                             </div>
                         </td>
+                         <td>
+                            <a
+                                class="link-item text-view"
+                                :href="`/admin/admins/item/${admin.id}`"
+                                >{{ admin.name }}</a
+                            >
+                        </td>
                         <td>
                             <a
                                 class="link-item text-view"
-                                :href="`/admin/category/item/${admin.id}`"
+                                :href="`/admin/admins/item/${admin.id}`"
                                 >{{ admin.email }}</a
                             >
                         </td>
                         <td>
                             <a
                                 class="link-item text-view"
-                                :href="`/admin/admin/item/${admin.id}`"
-                                >{{ admin.name }}</a
+                                :href="`/admin/admins/item/${admin.id}`"
+                                >{{ admin.created_at }}</a
                             >
-                        </td>
-                        <td class="text-center">{{ admin.views }}</td>
-                        <td class="text-center">
-                            {{ admin.created_at }}
                         </td>
                         <td>
                             <button
@@ -108,7 +111,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="position-relative" v-if="admin != ''">
+            <div class="position-relative" v-if="admins.length != 0">
                 <paginate
                     :page-count="lastPage"
                     :container-class="'pagination d-flex justify-content-center mt-3'"
