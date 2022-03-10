@@ -27,8 +27,8 @@ class AdminsController extends Controller
     {
         try {
             $data = Admins::where(function ($q) use($request) {
-                if ($request->name) {
-                    $q->where('name', 'like', '%' . $request->name . '%');
+                if ($request->email) {
+                    $q->where('email', 'like', '%' . $request->email . '%');
                 }
             })->orderByDesc('updated_at')->paginate(10);
             

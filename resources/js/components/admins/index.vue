@@ -209,7 +209,7 @@ export default {
                     params: {
                         _token: Laravel.csrfToken,
                         page: page,
-                        name: this.searchText
+                        email: this.searchText
                     },
                 })
                 .then(function (response) {
