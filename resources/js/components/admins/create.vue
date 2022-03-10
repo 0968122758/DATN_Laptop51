@@ -56,7 +56,7 @@
                                     placeholder="ランニング"
                                     v-model="email"
                                     @input="changeInput()"
-                                    v-validate="'required|max:255|email'"
+                                    v-validate="'required|max:255|email|unique:admins'"
                                 />
                                 <div class="input-group is-danger" role="alert">
                                     {{ errors.first("email") }}
@@ -120,7 +120,7 @@
                                     v-validate="'required'"
                                         >
                                 <label 
-                                 for="defaultGroupExample1">Rule 1</label>
+                                 for="defaultGroupExample1">Admin</label>
                                 </div>
                                 <div class="custom-control custom-radio">
                                  <input  type="radio" 
@@ -133,7 +133,7 @@
                                     v-validate="'required'"
                                         >
                                 <label 
-                                 for="defaultGroupExample1">Rule 2</label>
+                                 for="defaultGroupExample1">Supper Admin</label>
                                 </div>
                                 <div class="input-group is-danger" role="alert">
                                     {{ errors.first("rule") }}
@@ -166,6 +166,8 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
+
 export default {
     data() {
         return {
@@ -177,7 +179,26 @@ export default {
             isSubmit: false,
         }
     },
-    props: ["createUrl"],
+    props: ["createUrl", "checkUniqueUrl"],
+    created () {
+        let that = this
+        this.$validator.extend("unique", {
+        validate(value, args) {
+            return axios
+            .post(that.checkUniqueUrl, {
+                _token: Laravel.csrfToken,
+                value: value,
+                type: args[0],
+            })
+            .then(function (response) {
+                return {
+                valid: response.data.valid,
+                };
+            })
+            .catch((error) => {});
+        },
+        });
+    },
     methods: {
         register() {
             let formData = new FormData();

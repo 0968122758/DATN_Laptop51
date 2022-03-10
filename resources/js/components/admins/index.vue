@@ -31,7 +31,11 @@
                             Delete All
                         </button>
                         
-                    <input type="text" placeholder="Enter the name you are looking for . . ."  class="text-center search-admins" v-model="searchText" @keyup="getData(1)">
+                    <input type="text" placeholder="Search by email "  class="text-center search-admins" v-model="searchText" @keyup="getData(1)"> <button
+                            class="btn btn-search border-radius-7 btn-success"
+                        >
+                            Search
+                        </button>
                     </div>
                 </div>
             </div>
@@ -111,7 +115,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="position-relative" v-if="admins.length != 0">
+            <div class=" position-relative" v-if="admins.length != 0">
                 <paginate
                     :page-count="lastPage"
                     :container-class="'pagination d-flex justify-content-center mt-3'"
@@ -127,7 +131,7 @@
                 >
                 </paginate>
                 <div
-                    class="dataTables_info hiragino-sans-w5"
+                    class="totalNumber dataTables_info hiragino-sans-w5"
                     id="dataTable_info"
                     role="status"
                     aria-live="polite"

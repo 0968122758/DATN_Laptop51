@@ -51,6 +51,7 @@ Route::group([
         Route::post('/deleteAll', 'AdminsController@deleteAll')->name('admin.admins.deleteAll');
         Route::get('/create', 'AdminsController@Create')->name('admin.admins.create');
         Route::post('/create', 'AdminsController@store')->name('admin.admins.store');
+        Route::post('/check-unique', 'AdminsController@checkUniqueEmail')->name('admin.admins.checkUniqueEmail');
 
     });
 });

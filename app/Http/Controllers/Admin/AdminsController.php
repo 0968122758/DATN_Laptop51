@@ -7,6 +7,7 @@ use App\Models\Admins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 use Exception;
 
 class AdminsController extends Controller
@@ -74,7 +75,7 @@ class AdminsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'email' => 'required|email',
+            'email' => 'required|email|max:255|unique:admins',
             'password' => 'required|max:255',
             'rule' => 'required|max:1|alpha_num',
 
@@ -84,14 +85,25 @@ class AdminsController extends Controller
         }
         try {
             $admins = new Admins();
-            $admins->email = $request->email;
-            $admins->password = bcrypt($request->password);
-            $admins->name = $request->name;
-            $admins->rule = $request->rule;
+            $admins->fill($request->all());
+            $admins->password = Hash::make($request->password);
             $admins->save();
             return response()->json(["status" => true], StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
+    }
+
+    public function checkUniqueEmail(Request $request)
+    {
+        $valid = !Admins::where(function ($query) use ($request) {
+            if (isset($request['id'])) {
+                $query->where('id', '!=', $request["id"]);
+            }
+            $query->where('email', $request["value"]);
+        })->exists();
+        return response()->json([
+            'valid' => $valid,
+        ], StatusCode::OK);
     }
 }
