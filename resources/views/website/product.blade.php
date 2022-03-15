@@ -23,7 +23,7 @@
 			<div class="card"> <span class="percent">-10%</span>
 				<div class="card-image"> <img src="https://image.thanhnien.vn/w1024/Uploaded/2022/oqivotiw/2022_02_28/cristiano-ronaldo-7583.jpeg" width="250"> </div>
 				<div class="card-inner"> <span>Groceries</span>
-					<h5 class="mb-0">Dr. Oetkar Oats -500g</h5>
+					<h5 class="mb-0">Dr. Oetkar Oats -500G</h5>
 					<div class="price"> <span>$22.99</span> <sup>$20.99</sup> </div>
 					<div class="mt-3 d-flex justify-content-between align-items-center"> <button class="btn btn-success text-uppercase btn-sm details">Details</button>
 						<div class="d-flex flex-row"> <span class="wishlist"><i class="fa fa-heart"></i></span> <span class="cart"><i class="fa fa-shopping-cart"></i></span> </div>
