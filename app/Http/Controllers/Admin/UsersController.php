@@ -21,6 +21,25 @@ class UsersController extends Controller
         $breadcrumbs = ['Users'];
         return view('admin.user.index', ['breadcrumbs' => $breadcrumbs,]);
     }
+    public function edit($id){
+        $user = User::find($id);
+        return response()->json($user);
+    }
+    public function saveEdit(Request $request){
+        // dd($request->all());
+        $user = User::find($request->id);
+        if($request->hasFile('avatar')){
+            $file_name = time().'_'.$request->avatar->getClientOriginalName();
+            $file_path = $request->file('avatar')->storeAs('uploads', $file_name, 'public');
+            $user->avatar = $file_name;
+        }
+        $user->email = $request->email;
+        $user->name = $request->name;
+        $user->gender = $request->gender;
+        $user->birthdate = $request->birthdate;
+        $user->update();
+        return response()->json(StatusCode::OK);
+     }
 
     /**
      * Show the form for creating a new resource.
@@ -70,10 +89,6 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

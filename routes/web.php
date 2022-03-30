@@ -27,6 +27,10 @@ Route::group([
         Route::delete('/deleteItem/{id}', 'UsersController@delete_record')->name('admin.user.delete_record');
         Route::post('/deleteAll', 'UsersControllerr@deleteAll')->name('admin.user.deleteAll');
         Route::post('/search', 'UsersController@Search');
+        Route::get('/edit/{id}', 'UsersController@edit')->name('admin.users.edit');
+        Route::put('/edit', 'UsersController@saveEdit');
+
+
     });
 
     // categories route

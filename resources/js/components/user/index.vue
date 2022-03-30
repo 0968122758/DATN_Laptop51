@@ -87,7 +87,7 @@
                         </td>
                         <td>
                             <div class="category-image">
-                                <img :src="user.avatar" alt="" />
+                                <img :src="'/public/uploads/' + user.avatar" alt="" />
                             </div>
                         </td>
                         <td>
@@ -120,7 +120,77 @@
                                 class="btn btn-light icon-close"
                                 @click="deleteItem(user.id)"
                             ></button>
+                        <button type="button" @click="editUser(user.id)" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>
                         </td>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+        <form enctype="multipart/form-data">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="container-fluid">
+        <div class="row">
+                    <div class="row w-form-create">
+                        <div class="col-6 form-edit" >
+                            <div class="form-group">
+                                <label for="">email </label>
+                                <input type="text" v-model="email" name="email" class="form-control" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">name </label>
+                                <input type="text" v-model="name" name="name" class="form-control" placeholder="">
+                            </div>
+                              <label class="form-check-label" for="flexRadioDefault1">
+                                Gender
+                            </label>
+                           <div class="form-check">
+                            <input class="form-check-input" v-model="gender" value="1" type="radio" name="1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Male
+                            </label>
+                            </div>
+                            <div class="form-check">
+                            <input class="form-check-input" v-model="gender" value="2" type="radio" name="2" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Female
+                            </label>
+                            </div>
+                            <div class="form-check">
+                            <input class="form-check-input" v-model="gender" value="3" type="radio" name="2" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Other
+                            </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Avatar </label>
+                                <input type="file" v-on:change="onChange"  name="name" class="form-control" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Birthdate </label>
+                                <input type="text" v-model="birthdate" name="birthdate" class="form-control" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Phone </label>
+                                <input type="text" v-model="phone" name="phone" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+            </div>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" @click.prevent="saveEditUser" data-dismiss="modal" class="btn btn-primary">update</button>
+      </div>
+    </div>
+</form>
+  </div>
+</div>
                     </tr>
                 </tbody>
             </table>
@@ -169,6 +239,14 @@ export default {
             isBtnDeleteAll: false,
             isInputALl: false,
             selectedIds: [],
+            id: '',
+            email: '',
+            phone: '',
+            name: '',
+            password: '',
+            birthdate: '',
+            avatar: '',
+            gender: '',
         };
     },
     props: ["initData"],
@@ -206,6 +284,40 @@ export default {
             } else {
                 this.isBtnDeleteAll = false;
             }
+        },
+         editUser(id){
+            axios.get('/admin/user/edit/'+id)
+            .then(response => {
+                 this.id = response.data.id;
+                 this.email = response.data.email;
+                 this.name = response.data.name;
+                 this.phone = response.data.phone;
+                 this.birthdate = response.data.birthdate;
+                 this.avatar = response.data.avatar;
+                 this.gender = response.data.gender;
+
+            });
+        },
+         onChange(e) {
+                this.avatar = e.target.files[0];
+            },
+        saveEditUser(){
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+                let formData = new FormData();
+                formData.append('_method', 'PUT');
+                formData.append('id', this.id);
+                formData.append('email', this.email);
+                formData.append('name', this.name);
+                formData.append('birthdate', this.birthdate);
+                formData.append('avatar', this.avatar);
+                formData.append('gender', this.gender);
+           axios.post('/admin/user/edit', formData, config).then(response =>{
+                this.getData(1);
+            });
         },
         prev() {},
         next() {},
