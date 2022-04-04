@@ -253,6 +253,20 @@ export default {
     methods: {
         deleteItem(id){
             axios.delete('/admin/user/deleteItem/'+id).then(response =>{
+                                this.$toast.error("Delete success!", {
+                position: "top-right",
+                timeout: 2000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: "bi bi-trash",
+                rtl: false
+                });
                 this.getData();
             });
         },
@@ -316,6 +330,11 @@ export default {
                 formData.append('avatar', this.avatar);
                 formData.append('gender', this.gender);
            axios.post('/admin/user/edit', formData, config).then(response =>{
+              this.$swal({
+                title: "Update Thành Công !",
+                icon: "success",
+                confirmButtonText: "Xác nhận",
+              })
                 this.getData(1);
             });
         },

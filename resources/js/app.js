@@ -6,7 +6,14 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import Paginate from "vuejs-paginate";
 import UserList from "./components/user/index.vue";
 import CategoryList from "./components/category/index.vue";
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
+Vue.use(Toast, {
+  transition: "Vue-Toastification__bounce",
+  maxToasts: 20,
+  newestOnTop: true
+});
 Vue.use(VueSweetalert2);
 Vue.component("paginate", Paginate);
 
