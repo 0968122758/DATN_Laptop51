@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use App\Enums\StatusCode;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use Validator;
+use Hash;
 use Exception;
+use Illuminate\Validation\Rule;
+
 
 class UsersController extends Controller
 {
@@ -21,24 +25,88 @@ class UsersController extends Controller
         $breadcrumbs = ['Users'];
         return view('admin.user.index', ['breadcrumbs' => $breadcrumbs,]);
     }
-    public function edit($id){
-        $user = User::find($id);
-        return response()->json($user);
+    public function create(){
+        return view('admin.user.create');
     }
-    public function saveEdit(Request $request){
-        // dd($request->all());
-        $user = User::find($request->id);
+    public function SaveCreate(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'avatar' => 'required',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|min:8|max:30',
+        ]
+    );
+        if ($validator->fails()) {
+            $message = array_combine($validator->errors()->keys(), $validator->errors()->all());
+            return response()->json(["message_validate" => $message], StatusCode::BAD_REQUEST);
+        }
+       try{
+        $user = new User();
         if($request->hasFile('avatar')){
             $file_name = time().'_'.$request->avatar->getClientOriginalName();
             $file_path = $request->file('avatar')->storeAs('uploads', $file_name, 'public');
             $user->avatar = $file_name;
         }
+        $user->password = Hash::make($request->password);
         $user->email = $request->email;
         $user->name = $request->name;
         $user->gender = $request->gender;
         $user->birthdate = $request->birthdate;
-        $user->update();
+        $user->phone = $request->phone;
+        $user->save();
         return response()->json(StatusCode::OK);
+       }
+           catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
+           }
+    }
+    public function unique(Request $request){
+        $user = User::where('email', $request->email)->first();
+        if($user){
+            if($user->id == $request->id){
+                return response()->json(['result' => true]);
+            }else{
+                return response()->json(['result' => false]);
+            }
+        }else{
+            return response()->json(['result' => true]);
+        }
+
+    }
+    public function edit($id){
+        $user = User::find($id);
+        return view('admin.user.edit', ['user' => $user,]);
+    }
+    public function SaveEdit(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            // 'avatar' => 'required',
+            'email' => ['required', 'max:255',  Rule::unique('users')->where(function ($query) use($request) {
+                return $query->where('id', '!=', $request->id)->whereNull('deleted_at');
+            })]
+        ]
+    );
+        if ($validator->fails()) {
+            $message = array_combine($validator->errors()->keys(), $validator->errors()->all());
+            return response()->json(["message_validate" => $message], StatusCode::BAD_REQUEST);
+        }
+        try{
+            $user = User::find($request->id);
+                if($request->hasFile('avatar')){
+                    $file_name = time().'_'.$request->avatar->getClientOriginalName();
+                    $file_path = $request->file('avatar')->storeAs('uploads', $file_name, 'public');
+                    $user->avatar = $file_name;
+                }
+            $user->email = $request->email;
+            $user->name = $request->name;
+            $user->gender = $request->gender;
+            $user->birthdate = $request->birthdate;
+            $user->update();
+            return response()->json(StatusCode::OK);
+        }catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
+        }
+       
      }
 
     /**
@@ -46,10 +114,6 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('admin.user.create');
-    }
 
     /**
      * Store a newly created resource in storage.

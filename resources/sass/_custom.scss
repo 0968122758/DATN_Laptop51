@@ -609,11 +609,62 @@
     color: $black;
 }
 .form-edit{
-    width: 900px !important;
+    width: 1850px !important;
 }
 .swal2-icon-success{
     display: block !important;
 }
 .my-style{
     background-color: red;
+}
+.modal-content{
+    width: 1010px !important;
+}
+.radio{
+    .roww{
+    display: flex;
+    height: 50px;
+    margin-bottom: 0px !important;
+    }
+}
+.roww{
+    display: flex;
+    height: 50px;
+    margin-bottom: 40px !important;
+    
+    label{
+        width: 100px;
+        margin-right: 50px;
+    }
+    .form-check{
+        width: 100px !important;
+    }
+    .input{
+        height: 71px;
+        width: 763px !important;
+        display: block;
+        border-radius: 5px;
+        border: 1px solid #B9B9B9;
+    }
+}
+.modal-footer{
+    justify-content: center !important;
+    align-items: center !important;
+    button{
+    background-color: #28C76F;
+    width: 200px;
+    height: 44px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    }
+    button:hover{
+        background-color: #28C76F;
+        color: white;
+        }
+}
+.error{
+    color: red;
+    margin-left: 150px;
+
 }

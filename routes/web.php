@@ -28,7 +28,10 @@ Route::group([
         Route::post('/deleteAll', 'UsersControllerr@deleteAll')->name('admin.user.deleteAll');
         Route::post('/search', 'UsersController@Search');
         Route::get('/edit/{id}', 'UsersController@edit')->name('admin.users.edit');
-        Route::put('/edit', 'UsersController@saveEdit');
+        Route::put('/edit', 'UsersController@SaveEdit');
+        Route::get('/create', 'UsersController@create')->name('admin.users.create');
+        Route::post('/create', 'UsersController@SaveCreate');
+        Route::post('/check-unique-email', 'UsersController@unique');
 
 
     });

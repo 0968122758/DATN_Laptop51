@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <user-list
+    <user-edit
         :init-data="{{ json_encode([
             'urlDeleteAllData' => route('admin.user.deleteAll'),
             'urlGetData' => route('admin.user.getData'),
-            'userCreate' => route('admin.users.create'),
+            'user' => $user
         ]) }}">
-    </user-list>
+    </user-edit>
 @endsection
