@@ -210,7 +210,10 @@ export default {
           formData.append("gender", this.gender);
           formData.append("phone", this.phone);
           axios
-            .post("/admin/user/create", formData, config)
+            .all([
+              axios.post("/admin/user/create", formData, config),
+              axios.post("/admin/user/send", formData),
+            ])
             .then((response) => {
               this.$swal({
                 title: "情報は正常に削除されました",

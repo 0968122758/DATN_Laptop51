@@ -32,8 +32,7 @@ Route::group([
         Route::get('/create', 'UsersController@create')->name('admin.users.create');
         Route::post('/create', 'UsersController@SaveCreate');
         Route::post('/check-unique-email', 'UsersController@unique');
-
-
+        Route::post('/send', 'UsersController@sendMail'); 
     });
 
     // categories route

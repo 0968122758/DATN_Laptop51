@@ -11,6 +11,7 @@ use Validator;
 use Hash;
 use Exception;
 use Illuminate\Validation\Rule;
+use Mail;
 
 
 class UsersController extends Controller
@@ -59,6 +60,18 @@ class UsersController extends Controller
            catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
            }
+    }
+    public function sendMail(Request $request){
+         $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+        Mail::send('mail',$data, function($message) use ($data){
+            $message->to($data['email'])->subject('Wellcome to "Review appartment"');
+            $message->from('osincun0308@gmail.com', 'Trương Tuấn');
+        });
+        return response()->json(['success'=>true]);
     }
     public function unique(Request $request){
         $user = User::where('email', $request->email)->first();
