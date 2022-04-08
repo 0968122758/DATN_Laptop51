@@ -42,6 +42,7 @@ class UsersController extends Controller
             $message = array_combine($validator->errors()->keys(), $validator->errors()->all());
             return response()->json(["message_validate" => $message], StatusCode::BAD_REQUEST);
         }
+        DB::beginTransaction();
        try{
         $user = new User();
         if($request->hasFile('avatar')){
@@ -106,6 +107,7 @@ class UsersController extends Controller
             $message = array_combine($validator->errors()->keys(), $validator->errors()->all());
             return response()->json(["message_validate" => $message], StatusCode::BAD_REQUEST);
         }
+        DB::beginTransaction();
         try{
             $user = User::find($request->id);
                 if($request->hasFile('avatar')){
