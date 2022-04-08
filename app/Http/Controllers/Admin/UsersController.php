@@ -12,6 +12,7 @@ use Hash;
 use Exception;
 use Illuminate\Validation\Rule;
 use Mail;
+use DB;
 
 
 class UsersController extends Controller
@@ -55,9 +56,11 @@ class UsersController extends Controller
         $user->birthdate = $request->birthdate;
         $user->phone = $request->phone;
         $user->save();
+        DB::commit();
         return response()->json(StatusCode::OK);
        }
            catch(\Exception $e){
+            DB::rollBack();
             return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
            }
     }
@@ -114,9 +117,11 @@ class UsersController extends Controller
             $user->name = $request->name;
             $user->gender = $request->gender;
             $user->birthdate = $request->birthdate;
+            DB::commit();
             $user->update();
             return response()->json(StatusCode::OK);
         }catch (\Exception $e) {
+            DB::rollBack();
             return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
         }
        
