@@ -125,8 +125,11 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" @click.prevent="saveEditUser" class="btn">
-              update
+             <button type="button" @click.prevent="saveEditUser" class="btn" disabled v-if="loading">
+             <span  class="load spinner-border spinner-border-sm"></span>{{loading ? 'Loading....' : 'Edit'}}
+            </button>
+             <button type="button" @click.prevent="saveEditUser" class="btn"  v-else>
+              {{loading ? 'Loading....' : 'Edit'}}
             </button>
           </div>
         </div>
@@ -210,9 +213,9 @@ export default {
               this.systermError = errors.response.data.message_validate;
               if (response.status == 500) {
                 this.$swal({
-                  title: "",
+                  title: "Lỗi",
                   icon: "error",
-                  confirmButtonText: "はい",
+                  confirmButtonText: "Xác Nhận",
                   customClass: {
                     popup: "popup-alert",
                     icon: "icon-error",

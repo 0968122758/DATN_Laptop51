@@ -11,7 +11,8 @@ use Validator;
 use Hash;
 use Exception;
 use Illuminate\Validation\Rule;
-use Mail;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Welcome;
 use DB;
 
 
@@ -44,6 +45,7 @@ class UsersController extends Controller
         }
         DB::beginTransaction();
        try{
+        Log::info($request->all());
         $user = new User();
         if($request->hasFile('avatar')){
             $file_name = time().'_'.$request->avatar->getClientOriginalName();
@@ -57,6 +59,13 @@ class UsersController extends Controller
         $user->birthdate = $request->birthdate;
         $user->phone = $request->phone;
         $user->save();
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+        Mail::to($data['email'])
+        ->queue(new Welcome($data));
         DB::commit();
         return response()->json(StatusCode::OK);
        }
@@ -65,18 +74,18 @@ class UsersController extends Controller
             return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
            }
     }
-    public function sendMail(Request $request){
-         $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password
-        ];
-        Mail::send('mail',$data, function($message) use ($data){
-            $message->to($data['email'])->subject('Wellcome to "Review appartment"');
-            $message->from('osincun0308@gmail.com', 'Trương Tuấn');
-        });
-        return response()->json(['success'=>true]);
-    }
+    // public function sendMail(Request $request){
+    //      $data = [
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => $request->password
+    //     ];
+    //     Mail::send('mail',$data, function($message) use ($data){
+    //         $message->to($data['email'])->subject('Wellcome to "Review appartment"');
+    //         $message->from('osincun0308@gmail.com', 'Trương Tuấn');
+    //     });
+    //     return response()->json(['success'=>true]);
+    // }
     public function unique(Request $request){
         $user = User::where('email', $request->email)->first();
         if($user){
@@ -166,7 +175,6 @@ class UsersController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *

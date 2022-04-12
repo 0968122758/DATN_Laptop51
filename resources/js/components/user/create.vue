@@ -146,8 +146,11 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" @click.prevent="SaveCreate" class="btn">
-              create
+            <button type="button" @click.prevent="SaveCreate" class="btn" disabled v-if="loading">
+             <span  class="load spinner-border spinner-border-sm"></span>{{loading ? 'Loading....' : 'Create'}}
+            </button>
+             <button type="button" @click.prevent="SaveCreate" class="btn"  v-else>
+              {{loading ? 'Loading....' : 'Create'}}
             </button>
           </div>
         </div>
@@ -159,6 +162,7 @@
 export default {
   data() {
     return {
+      loading: false,
       email: "",
       name: "",
       password: "",
@@ -209,16 +213,15 @@ export default {
           formData.append("password", this.password);
           formData.append("gender", this.gender);
           formData.append("phone", this.phone);
-          axios
-            .all([
-              axios.post("/admin/user/create", formData, config),
-              axios.post("/admin/user/send", formData),
-            ])
+          formData.append("loading", this.loading);
+          this.loading = true,
+              axios.post("/admin/user/create", formData, config)
             .then((response) => {
+          this.loading = false
               this.$swal({
-                title: "情報は正常に削除されました",
+                title: "Thêm User Thành Công",
                 icon: "success",
-                confirmButtonText: "はい",
+                confirmButtonText: "Xác Nhận",
                 customClass: {
                   popup: "popup-alert",
                   icon: "icon-success",
@@ -234,9 +237,9 @@ export default {
               this.systermError = errors.response.data.message_validate;
               if (response.status == 500) {
                 this.$swal({
-                  title: "",
+                  title: "Lỗi",
                   icon: "error",
-                  confirmButtonText: "はい",
+                  confirmButtonText: "Xác Nhận",
                   customClass: {
                     popup: "popup-alert",
                     icon: "icon-error",

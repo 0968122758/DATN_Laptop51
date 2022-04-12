@@ -1,3 +1,3 @@
 Your account: <br>
-name: {{$name}}
-Password: {{$password}}
+name: {{$data['name']}}
+Password: {{$data['password']}}
